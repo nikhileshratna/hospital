@@ -5,10 +5,11 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NoPage from "./pages/NoPage";
-
+import Navbar from "./pages/Navbar";
 function App() {
   return (
     <BrowserRouter>
+      <Navbar/>
       <Routes>
         <Route path="/" element={<Home />}>
           {/* <Route index element={<Home />} /> */}
