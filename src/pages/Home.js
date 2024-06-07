@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { CButton } from '@coreui/react';
 
 const Home = () => {
   const [data, setData] = useState(null);
@@ -68,10 +69,10 @@ const Home = () => {
               }
             </div>
             <div className='flex flex-col gap-3'>
-            <h4>Want to Request Blood From This Hospital></h4>
-            <label for='blood'>Select Your Blood Group</label>
+            <h4>Want to Request Blood From This Hospital?</h4>
+            <label for='blood'>Select Your Blood Group : </label>
           
-            <select id='blood' className='border border-black'>
+            <select id='blood' className='border border-black w-[30%] mx-auto'>
               <option value="O+">O+</option>
               <option value="O-">O-</option>
               <option value="A+">A+</option>
@@ -81,7 +82,7 @@ const Home = () => {
               <option value="AB+">AB+</option>
               <option value="AB-">AB-</option>
             </select>
-            <button className='border border-black'>Request</button>
+            <CButton color="primary" className='w-[30%] mx-auto'>Request Blood</CButton>
 
             </div>
 
