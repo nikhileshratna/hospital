@@ -7,13 +7,12 @@ const Home = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await axios.get("http://localhost/bloodbankdatabase/availableBlood.php")
-      .then((response) => {
+      try {
+        const response = await axios.get("http://localhost/bloodbankdatabase/availableBlood.php");
         setData(response.data);
-      })
-      .catch((error) => {
+      } catch (error) {
         setError(error);
-      });
+      }
     }
 
     fetchData();
@@ -26,48 +25,75 @@ const Home = () => {
   if (!data) {
     return <div>Loading...</div>;
   }
-  const obj = data;
-  // const obj = JSON.parse(data);
-  let jsonString = obj;
 
-// Add commas between the JSON objects to make it a valid JSON array
-jsonString = jsonString.replace(/}{/g, '},{');
-jsonString = `[${jsonString}]`;
-
-// Parse the JSON array into an array of objects
-let arrayOfObjects = JSON.parse(jsonString);
+  // Split the data into an array of objects
+  // const arrayOfObjects = data.split(";").map(item => JSON.parse(item));
+  const arrayOfStrings = data.split(";");
+  arrayOfStrings.pop();
+  let arrayOfObjects = [];
+  arrayOfObjects = arrayOfStrings.map(item => JSON.parse(item));
+  console.log(arrayOfObjects);
 
 
   const map = new Map();
-  const bloodGroup = ["O+"," O-", "A+", "A-", "B+", "B-", "AB+", "AB-"];
+  const bloodGroup = ["O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"];
 
-  // useEffect(() => {
+  
 
-    bloodGroup.map((item) => {
-      map.set(item, 0);
-    });
-
-  // },[])
+  // arrayOfObjects.forEach(item => {
+  //   const bloodData = item?.availableBlood;
+  //   const bloodObj = JSON.parse(bloodData);
+  // });
 
   return (
-    <div>
+  
+    <div className='flex items-center gap-2 flex-col'>
       {
-        arrayOfObjects.map((item, index) => {
-          for(let key in item) {
-            map.set(key, map.get(key) + item[key]);
-          }
-        })
-      }
-      {
-        bloodGroup.map((item) => {
+        arrayOfObjects.map(item => {
+          const bloodData = item?.availableBlood;
+          const bloodObj = JSON.parse(bloodData);
           return (
+          <div>
+          <h4>Hospital Name : {item?.name}</h4>
             <div>
-              <h1>{item} : {map.get(item)}</h1>
+              {
+                bloodGroup.map((item) => {
+                  return (
+                    <div className='flex flex-row gap-5'>
+                      <p>Blood Group : {item}</p>
+                      <p>Quantity : {bloodObj?.[item] ?? 0}</p>
+                    </div>
+                  )
+                })
+              }
             </div>
-          )
+            <div className='flex flex-col gap-3'>
+            <h4>Want to Request Blood From This Hospital></h4>
+            <label for='blood'>Select Your Blood Group</label>
+          
+            <select id='blood' className='border border-black'>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+            </select>
+            <button className='border border-black'>Request</button>
+
+            </div>
+
+          </div>
+          
+          
+        )
+
+
+        
         })
       }
-    
     </div>
   );
 }
