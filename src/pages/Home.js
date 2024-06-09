@@ -80,9 +80,9 @@ const Home = () => {
 
   return (
     <div>
-      {(loading || !data) && <Loading />}
+      {(loading) && <Loading />}
 
-      {!loading && (arrayOfObjects.length === 0) && <h1 className='text-center'>No Hospital Available</h1>}
+      {!loading && (arrayOfObjects.length === 0 || !data) && <h1 className='text-center'>No Hospital Available</h1>}
 
       {!loading && arrayOfObjects.length > 0 &&
         <div className='flex items-center gap-2 flex-col'>
