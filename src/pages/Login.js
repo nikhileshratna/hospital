@@ -1,25 +1,15 @@
 import React from 'react'
+import TabNavigation from '../components/TabNavigation/Navigation'
+import HospitalLogin from './HospitalLogin'
+import UserLogin from './UserLogin'
 
-const Login = () => {
-  return (
-    <div className='w-[50%] mx-auto '>
-        <h1>
-          Login to get your blood
-        </h1>
-        <form >
-          <div class="form-group flex flex-col gap-3">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-          </div>
-          <div class="form-group flex flex-col gap-3">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1"/>
-          </div>
-          <button type="submit" class="btn btn-primary mt-3">Submit</button>
-        </form>
-    </div>
-  )
+const Signup = () => {
+    const tabNames = ['Patient', 'Hospital'];
+    const components = [<UserLogin />, <HospitalLogin />]
+    return (
+        
+      <TabNavigation tabNames={tabNames} Components={components} isFitted={false} TabNavigationAuxillaryFunctionButton={false} tabWidth='fit-content' />
+    )
 }
 
-export default Login
+export default Signup

@@ -1,28 +1,52 @@
 import 'bootstrap/dist/css/bootstrap.min.css';  
-import {Nav, Navbar, Container, NavDropdown} from 'react-bootstrap';  
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
+
 function Navbar1() {  
+  const navigate = useNavigate();
   return (  
-    <Navbar bg="black" expand="md">  
-    <Container>  
-      <Navbar.Brand href="/">Blood Bank</Navbar.Brand>  
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />  
-      <Navbar.Collapse id="basic-navbar-nav">  
-        <Nav className="me-auto">  
-          <Nav.Link href="/" className='text-white'>Home</Nav.Link>  
-          <Nav.Link href="/signup" className='text-white'>Signup</Nav.Link>  
-          <Nav.Link href="/login" className='text-white'>Login</Nav.Link>  
-          <Nav.Link href="/logout" className='text-white'>Logout</Nav.Link>  
-          <NavDropdown title="Dropdown" id="basic-nav-dropdown">  
-            <NavDropdown.Item href="#action/3.1">Dropdown Item 1</NavDropdown.Item>  
-            <NavDropdown.Item href="#action/3.2">Dropdown Item 2</NavDropdown.Item>  
-            <NavDropdown.Item href="#action/3.3">Dropdown Item 3</NavDropdown.Item>  
-            <NavDropdown.Divider />  
-            <NavDropdown.Item href="#action/3.4">Another Item</NavDropdown.Item>  
-          </NavDropdown>  
-        </Nav>  
-      </Navbar.Collapse>  
-    </Container>  
-  </Navbar>  
+    <nav className='bg-black h-12 flex flex-row gap-2 items-center'>  
+      <div className='flex flex-row gap-2 justify-around w-full px-4'>  
+        <div className='flex flex-row gap-4'>
+          <Link to="/" className='text-white'>Blood Bank</Link>
+          <Link to="/" className='text-white'>Home</Link>  
+          {
+            (localStorage.getItem("email") && localStorage.getItem("userType") === "hospital") && (
+              <>
+                <Link to="/viewBloodRequest" className='text-white'>View Blood Request</Link>
+                <Link to="/addBloodInfo" className='text-white'>Add Blood Info</Link>
+              </>
+            )
+          }
+        </div>
+        <div className='flex flex-row gap-4'>
+          {
+            !localStorage.getItem("email") && (
+              <>
+                <Link to="/signup" className='text-white'>Signup</Link>  
+                <Link to="/login" className='text-white'>Login</Link> 
+              </>
+            )
+          } 
+          {
+            localStorage.getItem("email") && (
+              <Link 
+                to="/login"
+                className='text-white cursor-pointer'
+                onClick={() => {
+                  toast.success("Logout Successful");
+                  localStorage.clear();
+                }}
+              >
+                Logout
+              </Link>
+            )
+          }  
+        </div>
+      </div>  
+    </nav>  
   );  
 }  
-export default Navbar1;  
+
+export default Navbar1;
