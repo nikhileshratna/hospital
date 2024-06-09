@@ -30,7 +30,7 @@ const Signuphospital = () => {
     const addDataToDb = async (data) => {
         setLoading(true);
         try {
-            const response = await axios.post("http://localhost/bloodbankdatabase/auth/signupHospital.php", data, {
+            const response = await axios.post("http://black-coated-tackle.000webhostapp.com/bloodbankdatabase/auth/signupHospital.php", data, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }

@@ -16,7 +16,7 @@ const UserLogin = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        'http://localhost/bloodbankdatabase/auth/loginUser.php',
+        'http://black-coated-tackle.000webhostapp.com/bloodbankdatabase/auth/loginUser.php',
         data,
         {
           headers: {

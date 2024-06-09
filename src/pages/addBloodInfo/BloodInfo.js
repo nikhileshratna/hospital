@@ -17,7 +17,7 @@ const BloodInfo = () => {
             const email = localStorage.getItem("email");
 
             // Pass email as a query parameter
-            const response = await axios.get(`http://localhost/bloodbankdatabase/page/bloodInfo.php?email=${email}`);
+            const response = await axios.get(`http://black-coated-tackle.000webhostapp.com/bloodbankdatabase/page/bloodInfo.php?email=${email}`);
           
             console.log(response.data);
 

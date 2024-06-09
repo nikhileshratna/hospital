@@ -58,7 +58,7 @@ const ViewBloodRequest = () => {
     const deleteAll = async () => {
         setLoading(true);
         try {
-            const response = await axios.get(`http://localhost/bloodbankdatabase/deleteRequest.php?email=${localStorage.getItem("email")}`);
+            const response = await axios.get(`http://black-coated-tackle.000webhostapp.com/bloodbankdatabase/deleteRequest.php?email=${localStorage.getItem("email")}`);
             if (response.data.success) {
                 toast.success("All Requests Deleted Successfully");
                 setData([]); // Clear the data after successful deletion

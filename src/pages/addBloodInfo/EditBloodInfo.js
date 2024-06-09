@@ -15,7 +15,7 @@ const EditBloodInfo = () => {
         try {
             const email = localStorage.getItem("email");
 
-            const response = await axios.get(`http://localhost/bloodbankdatabase/page/bloodInfo.php?email=${email}`);
+            const response = await axios.get(`http://black-coated-tackle.000webhostapp.com/bloodbankdatabase/page/bloodInfo.php?email=${email}`);
           
             console.log(response.data);
 
@@ -33,7 +33,7 @@ const EditBloodInfo = () => {
         setLoading(true);
         try {
             const email = localStorage.getItem("email");
-            const response = await axios.post(`http://localhost/bloodbankdatabase/page/editBloodInfo.php`, {
+            const response = await axios.post(`http://black-coated-tackle.000webhostapp.com/bloodbankdatabase/page/editBloodInfo.php`, {
                 email: email,
                 updatedBlood: JSON.stringify(data),
             }, {
