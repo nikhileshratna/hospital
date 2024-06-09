@@ -35,7 +35,7 @@ const Signuphospital = () => {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             });
-
+            console.log(response.data);
             if(response.data.success) {
                 toast.success(response.data.message);
             }
