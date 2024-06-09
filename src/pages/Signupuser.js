@@ -21,7 +21,7 @@ const Signupuser = () => {
     const addDataToDb = async (data) => {
         setLoading(true);
         try {
-            const response = await axios.post("http://black-coated-tackle.000webhostapp.com/bloodbankdatabase/auth/signupUser.php", data, {
+            const response = await axios.post("https://black-coated-tackle.000webhostapp.com/bloodbankdatabase/auth/signupUser.php", data, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
