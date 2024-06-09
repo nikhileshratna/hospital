@@ -51,7 +51,7 @@ const Home = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post("http://black-coated-tackle.000webhostapp.com/bloodbankdatabase/requestBlood.php", {
+      const response = await axios.post("https://black-coated-tackle.000webhostapp.com/bloodbankdatabase/requestBlood.php", {
         email: email,
         reqBlood: reqBlood,
         quantity: quantity,
