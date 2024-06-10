@@ -33,7 +33,7 @@ const EditBloodInfo = () => {
         setLoading(true);
         try {
             const email = localStorage.getItem("email");
-            const response = await axios.post(`https://black-coated-tackle.000webhostapp.com/bloodbankdatabase/page/editBloodInfo.php`, {
+            const response = await axios.post("https://black-coated-tackle.000webhostapp.com/bloodbankdatabase/page/editBloodInfo.php", {
                 email: email,
                 updatedBlood: JSON.stringify(data),
             }, {

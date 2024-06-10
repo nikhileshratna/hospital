@@ -14,11 +14,15 @@ const ViewBloodRequest = () => {
         setLoading(true);
         try {
             const email = localStorage.getItem("email");
-            const response = await axios.get(`https://localhost/bloodbankdatabase/page/viewRequestToHospital.php?email=${email}`);
+            const response = await axios.get(`https://black-coated-tackle.000webhostapp.com/bloodbankdatabase/page/viewRequestToHospital.php?email=${email}`);
 
             console.log("Response Data:", response.data);
 
             if (response.data.success) {
+                if(!response.data.request) {
+                    toast.error("No Request Available");
+                    return;
+                }
                 console.log("Request Data:", response.data.request);
                 console.log(typeof(response.data.request));
                 const string = response.data.request;

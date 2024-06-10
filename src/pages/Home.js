@@ -5,7 +5,6 @@ import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 import Loading from '../components/Loading';
 
-
 const Home = () => {
   const [data, setData] = useState(null);
   const [reqBlood, setReqBlood] = useState("O+");
@@ -14,26 +13,25 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get("https://black-coated-tackle.000webhostapp.com/bloodbankdatabase/availableBlood.php");
-        setData(response.data);
-      } catch (error) {
-        console.error(error);
-      }
+    setLoading(true);
+    axios.get("https://black-coated-tackle.000webhostapp.com/bloodbankdatabase/availableBlood.php")
+    .then(response => {
+      setData(response.data);
+    })
+    .catch(error => {
+      console.error('There was an error fetching the data:', error);
+      toast.error('There was an error fetching the data. Please try again.');
+    })
+    .finally(() => {
       setLoading(false);
-    };
-
-    fetchData();
-    console.log(data);
+    });
   }, []);
 
   const arrayOfObjects = data ? data.split(";").filter(item => item).map(item => JSON.parse(item)) : [];
 
   const bloodGroup = ["O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"];
 
-  const clickHandler = async (e, email) => {
+  const clickHandler = (e, email) => {
     e.preventDefault();
 
     if (!localStorage.getItem("email")) {
@@ -49,20 +47,20 @@ const Home = () => {
     }
     const userEmail = localStorage.getItem("email");
 
-    try {
-      setLoading(true);
-      const response = await axios.post("http://black-coated-tackle.000webhostapp.com/bloodbankdatabase/requestBlood.php", {
-        email: email,
-        reqBlood: reqBlood,
-        quantity: quantity,
-        userEmail: userEmail,
-      }, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-
-      console.log(email, reqBlood, quantity,userEmail);
+    setLoading(true);
+    axios.post("https://black-coated-tackle.000webhostapp.com/bloodbankdatabase/requestBlood.php", {
+      email: email,
+      reqBlood: reqBlood,
+      quantity: parseFloat(quantity),
+      userEmail: userEmail,
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }
+    })
+    .then(response => {
+      console.log(email, reqBlood, quantity, userEmail);
       console.log(response.data);
 
       if (response.data.success) {
@@ -70,12 +68,14 @@ const Home = () => {
       } else {
         toast.error("Can't Send Request To Hospital, Try Again");
       }
-
+    })
+    .catch(error => {
+      console.error('There was an error sending the request:', error);
+      toast.error('There was an error sending the request. Please try again.');
+    })
+    .finally(() => {
       setLoading(false);
-    } catch (error) {
-      console.error("There was an error sending the request:", error);
-      setLoading(false);
-    }
+    });
   };
 
   return (
