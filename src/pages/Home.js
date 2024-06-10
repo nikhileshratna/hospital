@@ -17,6 +17,7 @@ const Home = () => {
     axios.get("https://black-coated-tackle.000webhostapp.com/bloodbankdatabase/availableBlood.php")
     .then(response => {
       setData(response.data);
+      toast.success('Hospital Data fetched successfully');
     })
     .catch(error => {
       console.error('There was an error fetching the data:', error);
