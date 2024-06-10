@@ -17,7 +17,7 @@ const Home = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("https://black-coated-tackle.000webhostapp.com/bloodbankdatabase/availableBlood.php");
+        const response = await axios.get("http://black-coated-tackle.000webhostapp.com/bloodbankdatabase/availableBlood.php");
         setData(response.data);
       } catch (error) {
         console.error(error);
